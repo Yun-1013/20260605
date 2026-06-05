@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    #card {
+        display: flex;
+
+    }
+    .card {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        margin: 10px;
+    }
+</style>
+
 <body>
+    <div id="card">
+        <div class="card">
+            <img src="" alt="">
+        </div>
+        
+    </div>
     <script>
-        // https://api.giphy.com/v1/stickers/trending?api_key=&limit=25&offset=0&rating=g&bundle=messaging_non_clips
+        // https://api.giphy.com/v1/stickers/trending?api_key=6ti7E7WeOJdjeFWZsQszHU8BymVcEZAg&limit=25&offset=0&rating=g&bundle=messaging_non_clips
+
+        // data[key].image.original.url
+
+        let getData = [];
+        fetch("https://api.giphy.com/v1/stickers/trending?api_key=6ti7E7WeOJdjeFWZsQszHU8BymVcEZAg&limit=25&offset=0&rating=g&bundle=messaging_non_clips")
+            .then((res) => res.json())
+            .then(data => {
+                const cards = document.querySelector("#card");
+
+                let getData = data.data;
+
+                console.log(getData);
+                getData.forEach(item => {
+                    const img = document.createElement("img");
+                    img.src = item.images.original.url;
+                    document.getElementById("card").appendChild(img);
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
     </script>
 </body>
+
 </html>
